@@ -42,6 +42,7 @@ jobs:
 
    deployment:
       if: ${{ inputs.steps == 'all' }}
+      needs: integration && needs.integration.result == 'success'
       name: model-deployment
       runs-on: ubuntu-latest
       steps:

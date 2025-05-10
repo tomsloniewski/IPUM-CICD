@@ -6,7 +6,7 @@ on: workflow_dispatch
 
 jobs:
    integration:
-      name: checks_and_tests
+      name: continuous-integration
       runs-on: ubuntu-latest
       steps:
          - name: Checkout code repo
@@ -28,3 +28,22 @@ jobs:
 
          - name: Run PyTest
            run: uv run pytest tests
+
+   deployment:
+      name: model-deployment
+      runs-on: latest
+      steps:
+         - name: Checkout code repo
+           uses: actions/checkout@v4
+
+         - name: Setup uv
+           run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+         - name: Install dependencies
+           run: uv sync --group deployment
+
+         - name: Download model
+           run: uv run python ../../src/scripts/download_artifacts.py
+
+         - name: Export model
+           run: uv run python ../../src/scripts/export_model_to_onnx.py

@@ -41,8 +41,8 @@ jobs:
            run: uv run pytest tests
 
    deployment:
-      if: ${{ inputs.steps == 'all' }}
-      needs: continuous-integration && needs.continuous-integration.result == 'success'
+      if: ${{ inputs.steps == 'all' && needs.continuous-integration.result == 'success' }}
+      needs: continuous-integration
       name: model-deployment
       runs-on: ubuntu-latest
       steps:

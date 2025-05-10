@@ -82,5 +82,5 @@ jobs:
             REPOSITORY: ipum-lab-ci-cd
             IMAGE_TAG: ${{ github.sha }}
            run: |
-            docker tag my-app:latest $REGISTRY/$REPOSITORY:$IMAGE_TAG
+            docker tag polish-sentiment-app-onnx-app:latest $REGISTRY/$REPOSITORY:$IMAGE_TAG
             docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
